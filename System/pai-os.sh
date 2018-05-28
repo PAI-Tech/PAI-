@@ -1,15 +1,14 @@
 
 #!/bin/bash
 
-#	
+#
 #	PAI-OS functions
 #	PAI-OS basics.
-# Created by Eran Caballero on 03/05/2018.  
-# Copyrights PAI Tech 2018, all rights reserved 
+# Created by Eran Caballero on 03/05/2018.
+# Copyrights PAI Tech 2018, all rights reserved
 
 PAI=/var/PAI
 PAI_SYSTEM_FOLDER=$PAI/System
-
 
 
 
@@ -24,6 +23,13 @@ pai_validate_folder()
 	if ! [ -d $1 ]; then
 		mkdir -p $1
 	fi
+}
+
+pai_validate_folder_mv()
+{
+        if ! [ -d $1 ]; then
+                mv ../$1 $PAI
+        fi
 }
 
 pai_add_ppa() 

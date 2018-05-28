@@ -17,17 +17,33 @@ PAI=/var/PAI
 # PAI functions
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro() {
-pai_log_sep
-pai_log 'starting pai-install...'
+	pai_log_sep
+	pai_log 'starting pai-install...'
+}
+
+pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
+	pai_log_sep
+	pai_log 'Validate and creating folders'
+	pai_validate_folder Logs
+	pai_validate_folder System
+	pai_validate_folder Config
+	pai_validate_folder PAI-CODE
+	pai_validate_folder Startup
+}
+
+pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
+	pai_log_sep
+	pai_log 'Validate and creating folders'
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
-pai_log 'done :)'
+	pai_log 'done :)'
 }
 
 # PAI main flow
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro
+pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders
 
 
 # validate and move folders :
