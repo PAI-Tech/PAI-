@@ -63,8 +63,8 @@ pai_create_script()
 	pai_write_to_script '. $PAI/System/pai.sh'
 
 	pai_write_to_script "\n# PAI functions\n"
-	pai_write_to_script "pai_"$PAI_SCRIPT_GUID"_intro() {\npai_log_sep\npai_log 'starting $PAI_SYSTEM_SCRIPT_NAME...'\n}\n"
-	pai_write_to_script "pai_"$PAI_SCRIPT_GUID"_end() {\npai_log 'done :)'\n}"
+	pai_write_to_script "pai_$PAI_SCRIPT_GUID_intro() {\npai_log_sep\npai_log 'starting $PAI_SYSTEM_SCRIPT_NAME...'\n}\n"
+	pai_write_to_script "pai_$PAI_SCRIPT_GUID_end() {\npai_log 'done :)'\n}"
 
 	pai_write_to_script "\n# PAI main flow\n"
 
