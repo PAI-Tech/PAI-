@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+#       Pai Startup
+#       pai-startup script, runs when the O/S starts.
+#       Created by PAI on ה' יוני 19 13:13:00 IDT 2018
+#       Copyrights PAI TECH INC 2018, all rights reserved 
+
+docker start pai-mongo
+docker start pai-nodejs
+docker start pai-web
+docker start mysql

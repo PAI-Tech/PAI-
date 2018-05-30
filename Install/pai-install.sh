@@ -11,6 +11,9 @@
 # PAI includes
 
 PAI=/var/PAI
+PAI_CONFIG_FOLDER=$PAI/Config
+PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER\pai.config
+PAI_SCRIPT_GUID=$(uuidgen)
 
 . $PAI/System/pai.sh
 
@@ -34,6 +37,11 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
+}
+
+pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
+	echo "OS GUID: $PAI_SCRIPT_GUID" >> $PAI_CONFIG_FILE
+	echo Installation time: 
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {

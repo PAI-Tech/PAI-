@@ -59,6 +59,7 @@ pai_create_script()
 	pai_write_to_script "# Copyrights PAI Tech INC 2018, all rights reserved\n" 
 
 	pai_write_to_script "\n# PAI includes\n"
+	pai_write_to_script "PAI_SCRIPT_ID=$PAI_SCRIPT_GUID\n"
 	pai_write_to_script "PAI=/var/PAI\n"
 	pai_write_to_script '. $PAI/System/pai.sh'
 
