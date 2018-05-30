@@ -46,12 +46,6 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders
 
 
-# validate and move folders :
-#			System
-#			Config
-#			Startup
-#			Logs
-
 # update config file (\var\PAI\Config\pai.config):
 #			OS GUID
 #			Install time
