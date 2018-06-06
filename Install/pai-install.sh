@@ -27,11 +27,12 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro() {
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
-	pai_validate_folder Logs
-	pai_validate_folder System
-	pai_validate_folder Config
-	pai_validate_folder PAI-CODE
-	pai_validate_folder Startup
+	pai_validate_folder $PAI/Backup
+	pai_validate_folder $PAI/Logs
+	pai_validate_folder $PAI/System
+	pai_validate_folder $PAI/Config
+	pai_validate_folder $PAI/PAI-CODE
+	pai_validate_folder $PAI/Startup
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
