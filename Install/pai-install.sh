@@ -11,8 +11,17 @@
 # PAI includes
 
 PAI=/var/PAI
+PAI_BACKUP_FOLDER=$PAI/Backup
+PAI_BOT_FOLDER=$PAI/Bot
 PAI_CONFIG_FOLDER=$PAI/Config
 PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER/pai.config
+PAI_LOGS_FOLDER=$PAI/Logs
+PAI_SYSTEM_FOLDER=$PAI/System
+PAI_STARTUP_FOLDER=$PAI/Startup
+PAI_CODE_FOLDER=$PAI/PAI-CODE/
+PAI_CODE_MODULES_FOLDER=$PAI_CODE_FOLDER/Modules
+
+
 PAI_SCRIPT_GUID=$(uuidgen)
 PAI_SCRIPT_ID=3C1F2ED5-C28A-40EF-833E-9D93B8502C6E
 
@@ -29,12 +38,14 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
 	pai_validate_folder $PAI
-	pai_validate_folder $PAI/Backup
-	pai_validate_folder $PAI/Logs
-	pai_validate_folder $PAI/System
-	pai_validate_folder $PAI/Config
-	pai_validate_folder $PAI/PAI-CODE
-	pai_validate_folder $PAI/Startup
+	pai_validate_folder $PAI_BACKUP_FOLDER
+	pai_validate_folder $PAI_BOT_FOLDER
+	pai_validate_folder $PAI_CONFIG_FOLDER
+	pai_validate_folder $PAI_LOGS_FOLDER
+	pai_validate_folder $PAI_SYSTEM_FOLDER
+	pai_validate_folder $PAI_CODE_FOLDER
+	pai_validate_folder $PAI_CODE_MODULE_FOLDER
+	pai_validate_folder $PAI_STARTUP_FOLDER
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
