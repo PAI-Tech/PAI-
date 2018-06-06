@@ -12,10 +12,11 @@
 
 PAI=/var/PAI
 PAI_CONFIG_FOLDER=$PAI/Config
-PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER\pai.config
+PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER/pai.config
 PAI_SCRIPT_GUID=$(uuidgen)
+PAI_SCRIPT_ID=3C1F2ED5-C28A-40EF-833E-9D93B8502C6E
 
-. $PAI/System/pai.sh
+. ../System/pai.sh
 
 # PAI functions
 
@@ -27,6 +28,7 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro() {
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
+	pai_validate_folder $PAI
 	pai_validate_folder $PAI/Backup
 	pai_validate_folder $PAI/Logs
 	pai_validate_folder $PAI/System
@@ -41,8 +43,8 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
-	echo "OS GUID: $PAI_SCRIPT_GUID" >> $PAI_CONFIG_FILE
-	echo Installation time: 
+	echo "OS GUID: $PAI_SCRIPT_ID" >> $PAI_CONFIG_FILE
+	echo Installation time: "$(date)" >> $PAI_CONFIG_FILE
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
@@ -53,11 +55,5 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders
-
-
-# update config file (\var\PAI\Config\pai.config):
-#			OS GUID
-#			Install time
-
-
+pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end
