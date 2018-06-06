@@ -106,7 +106,7 @@ pai_folders_validate()
 	pai_validate_folder $PAI_MEDIA_FOLDER
 	pai_validate_folder $PAI_MEDIA_PUBLIC_FOLDER
 	pai_validate_folder $PAI_LOGS
-	
+
 	chmod -R 777 $PAI_LOGS
 }
 
@@ -146,7 +146,7 @@ pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end()
 	pai_log "IP/demo/tv-demo.html"
 }
 
-		
+
 
 # PAI MAIN FLOW
 
