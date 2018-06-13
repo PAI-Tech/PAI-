@@ -24,7 +24,7 @@ pai_log 'starting pai-node-3000-pull...'
 }
 
 pai_nodejs_3000_pull() {
-cd PAI-node-server/ && \
+cd /home/PAI-node-server/ && \
 pm2 stop server.js && \
 git pull && \
 npm install && \
