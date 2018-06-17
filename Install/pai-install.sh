@@ -58,6 +58,13 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
 	echo Installation time: "$(date)" >> $PAI_CONFIG_FILE
 }
 
+pai_install_bot() {
+	cp bot.tar.gz $PAI_BOT_FOLDER && \
+	cd $PAI_BOT_FOLDER && \
+	tar -xvf bot.tar.gz && \
+	./run.sh
+}
+
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
 	pai_log 'done :)'
 }

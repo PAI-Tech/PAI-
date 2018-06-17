@@ -18,7 +18,7 @@ pai_run_system_script()
 }
 
 
-pai_validate_folder() #Ubuntu
+pai_validate_folder()
 {
 	if ! [ -d $1 ]; then
 		mkdir -p $1
