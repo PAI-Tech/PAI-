@@ -1,4 +1,4 @@
-#!/bin/bash\n
+#!/bin/bash
 # pai-install-instance.sh
 # Install new instance Inc. docker
 # pai-script-id=9729e1ee-60d7-42cb-8f01-dcf075b4cbf9
@@ -13,7 +13,7 @@ PAI_LOGS=$PAI/Logs
 PAI_MEDIA_FOLDER=$PAI/Media
 PAI_MEDIA_PUBLIC_FOLDER=$PAI_MEDIA_FOLDER/public
 
-. $PAI/System/pai.sh
+. ./pai.sh
 
 PAI_INSTALLER_NAME="Pai Prepare Linux Ubuntu"
 
@@ -159,7 +159,7 @@ pai_update_profiles
 pai_ssh_setup
 pai_update_profiles
 pai_docker_install
-pai_open_web_port
-pai_install_media_docker_image
-pai_install_oracle_cli
+#pai_open_web_port
+#pai_install_media_docker_image
+#pai_install_oracle_cli
 pai_prepare_end

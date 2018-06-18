@@ -63,7 +63,7 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
 }
 
 pai_install_bot() {
-	cp pai.tar.gz $PAI && \
+	cp ~/pai.tar.gz $PAI && \
 	cd $PAI && \
 	tar -xvf pai.tar.gz && \
 	cd $PAI_BOT_FOLDER
@@ -72,7 +72,7 @@ pai_install_bot() {
 	sed -i 's|PAI-BOT-ID|"$PAI-BOT-ID"|' $PAI_BOT_CONFIG_FILE
 	sed -i 's|PAI-BOT-NAME|"$PAI-BOT-NAME"|' $PAI_BOT_CONFIG_FILE
 	sed -i 's|PAI-BOT-NAME|"$PAI-BOT-NAME"|' $PAI_BOT_TEST_FILE
-	./run.sh
+	./run_local.sh
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
