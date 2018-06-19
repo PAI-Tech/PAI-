@@ -88,8 +88,8 @@ pai_docker_install()
 	apt-get -qq update
 	apt-cache policy docker-ce
 	apt-get install -qq -y docker-ce
-	usermod -aG docker ${USER}
-
+	#usermod -aG docker ${USER}
+	usermod -a -G docker $USER
 	#install docker-machine
 	curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
 	chmod +x /tmp/docker-machine && cp /tmp/docker-machine /usr/local/bin/docker-machine
