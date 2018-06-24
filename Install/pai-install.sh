@@ -22,7 +22,7 @@ PAI_SYSTEM_FOLDER=$PAI/System
 PAI_STARTUP_FOLDER=$PAI/Startup
 PAI_CODE_FOLDER=$PAI/PAI-CODE/
 PAI_CODE_MODULES_FOLDER=$PAI_CODE_FOLDER/Modules
-
+PAI_EXTERNAL_SCRIPT_FOLDER=$PAI_CODE_FOLDER/external-scripts
 
 #PAI_SCRIPT_GUID=$(uuidgen)
 #PAI_SCRIPT_ID=3C1F2ED5-C28A-40EF-833E-9D93B8502C6E
@@ -48,8 +48,10 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 	pai_validate_folder $PAI_CODE_FOLDER
 	pai_validate_folder $PAI_CODE_MODULE_FOLDER
 	pai_validate_folder $PAI_STARTUP_FOLDER
-	
+	pai_validate_folder $PAI_EXTERNAL_SCRIPT_FOLDER
+
 	chmod -R 777 $PAI_LOGS_FOLDER
+	chmod -R 777 $PAI_CODE_FOLDER
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
@@ -63,9 +65,8 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
 }
 
 pai_install_bot() {
-	cp ~/pai.tar.gz $PAI && \
-	cd $PAI && \
-	tar -xvf pai.tar.gz && \
+	git clone https://github.com/PAI-Tech/PAI-BOT-JAVA-EXE.git && \
+	cp -R ./PAI-BOT-JAVA-EXE/* $PAI_BOT_FOLDER
 	cd $PAI_BOT_FOLDER
 	read -p "Please enter your PAI-NET bot-id : " PAI-BOT-ID
 	read -p "Please enter your PAI-NET bot Name : " PAI-BOT-NAME
