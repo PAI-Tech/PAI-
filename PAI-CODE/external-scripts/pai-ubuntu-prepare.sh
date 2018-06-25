@@ -1,5 +1,5 @@
 #!/bin/bash
-# pai-install-instance.sh
+# pai-ubuntu-prepare.sh
 # Install new instance Inc. docker
 # pai-script-id=9729e1ee-60d7-42cb-8f01-dcf075b4cbf9
 # Created by Eran Caballero on Wed May 30 10:20:08 UTC 2018
@@ -10,10 +10,16 @@
 
 PAI=/var/PAI
 PAI_LOGS=$PAI/Logs
-PAI_MEDIA_FOLDER=$PAI/Media
-PAI_MEDIA_PUBLIC_FOLDER=$PAI_MEDIA_FOLDER/public
+PAI_PROFILE_FILE=/etc/profile
 
-. ./pai.sh
+PAI_STARTUP_SCRIPT_FILE=pai-startup.sh
+PAI_STARTUP_FOLDER=/var/PAI/Startup
+PAI_STARTUP_SCRIPT_FILE_PATH=$PAI_STARTUP_FOLDER/$PAI_STARTUP_SCRIPT_FILE
+INIT_FOLDER=/etc/init.d
+PAI_STARTUP_SCRIPT_FILE_LINK=pai-startup
+PAI_INSTALLER_NAME="Pai Startup"
+
+. ../../System/pai.sh
 
 PAI_INSTALLER_NAME="Pai Prepare Linux Ubuntu"
 
@@ -22,6 +28,11 @@ PAI_INSTALLER_NAME="Pai Prepare Linux Ubuntu"
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_intro()
 {
 	pai_log "Prepairing Linux OS For Pai"
+}
+
+pai_write_to_script()
+{
+	echo -e $1>>$PAI_STARTUP_SCRIPT_FILE_PATH
 }
 
 pai_update_os()
@@ -52,20 +63,20 @@ pai_handle_sudoers()
 
 pai_update_profiles()
 {
-	if grep -r "PAI :]" "/etc/profile";
-	then 
+	if grep -r "# PAI :]" $PAI_PROFILE_FILE;
+	then
 		pai_log "Profile file already updated"
 	else
-		echo "# PAI :]" >> /etc/profile
-		echo "PAI=/var/PAI" >> /etc/profile
-		echo "" >> /etc/profile
-		echo "LD_LIBRARY_PATH=/usr/local/lib/" >> /etc/profile
-		echo "PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/" >> /etc/profile
-		echo "" >> /etc/profile
-		echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/profile
-		echo "JRE_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java" >> /etc/profile
-		echo "PATH=$PATH:$HOME/bin:JAVA_HOME:JRE_HOME" >> /etc/profile
-		. /etc/profile
+		echo "# PAI :]" >> $PAI_PROFILE_FILE
+		echo "PAI=/var/PAI" >> $PAI_PROFILE_FILE
+		echo "" >> $PAI_PROFILE_FILE
+		echo "LD_LIBRARY_PATH=/usr/local/lib/" >> $PAI_PROFILE_FILE
+		echo "PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/" >> $PAI_PROFILE_FILE
+		echo "" >> $PAI_PROFILE_FILE
+		echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> $PAI_PROFILE_FILE
+		echo "JRE_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java" >> $PAI_PROFILE_FILE
+		echo "PATH=$PATH:$HOME/bin:JAVA_HOME:JRE_HOME" >> $PAI_PROFILE_FILE
+		. $PAI_PROFILE_FILE
 		echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 		pai_log "Profile file updated"
 	fi
@@ -80,16 +91,33 @@ pai_ssh_setup()
 	pai_log "Done..."
 }
 
+pai_add_all_ppas()
+{
+	PAI_JAVA_PPA=webupd8team/java
+	pai_add_ppa $PAI_JAVA_PPA
+	pai_log_sep
+}
+
+pai_java_install()
+{
+	pai_log "Installing Java..."
+	#Installing JAVA
+	apt-get -qq -y install oracle-java8-installer
+	update-java-alternatives -s java-8-oracle
+	pai_log_sep
+}
+
 pai_docker_install()
 {
 	#install Docker
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+	add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
 	apt-get -qq update
 	apt-cache policy docker-ce
 	apt-get install -qq -y docker-ce
 	#usermod -aG docker ${USER}
 	usermod -a -G docker $USER
+
 	#install docker-machine
 	curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
 	chmod +x /tmp/docker-machine && cp /tmp/docker-machine /usr/local/bin/docker-machine
@@ -98,6 +126,35 @@ pai_docker_install()
 	curl -L https://github.com/docker/compose/releases/download/1.21.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	chmod +x /usr/local/bin/docker-compose
 	pai_log "Docker installation done..."
+}
+
+pai_create_startup_file()
+{
+
+	# checking if startup folder exists
+
+	pai_validate_folder $PAI_STARTUP_FOLDER
+
+	if [ -f $PAI_STARTUP_SCRIPT_FILE ]; then
+		touch $PAI_STARTUP_SCRIPT_FILE_PATH
+	else
+		cp $PAI/System/pai-startup-empty.sh $PAI_STARTUP_SCRIPT_FILE_PATH
+	fi
+
+	pai_write_to_script ""
+	pai_write_to_script ""
+	pai_write_to_script '$SCRIPT_NAME_SH'
+
+	chmod +x $PAI_STARTUP_SCRIPT_FILE_PATH
+
+	if [ -f $PAI_STARTUP_SCRIPT_FILE_LINK ]; then
+		pai_log "removing startup definitions"
+		rm $PAI_STARTUP_SCRIPT_FILE_LINK
+		update-rc.d -f $PAI_STARTUP_SCRIPT_FILE_LINK remove
+	fi
+
+	ln -s $PAI_STARTUP_SCRIPT_FILE_PATH $INIT_FOLDER/$PAI_STARTUP_SCRIPT_FILE_LINK
+	update-rc.d $PAI_STARTUP_SCRIPT_FILE_LINK
 }
 
 pai_folders_validate()
@@ -143,14 +200,14 @@ pai_install_oracle_cli()
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end()
 {
 	pai_log_sep
-	pai_log "IP/demo/tv-demo.html"
+	pai_log "Done..."
 }
 
 
 
 # PAI MAIN FLOW
 
-pai_folders_validate
+#pai_folders_validate
 pai_prepare_intro
 pai_update_os
 pai_update_locale
@@ -158,8 +215,11 @@ pai_handle_sudoers
 pai_update_profiles
 pai_ssh_setup
 pai_update_profiles
+pai_add_all_ppas
+pai_java_install
 pai_docker_install
+pai_create_startup_file
 #pai_open_web_port
 #pai_install_media_docker_image
 #pai_install_oracle_cli
-pai_prepare_end
+pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end

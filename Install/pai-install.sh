@@ -14,7 +14,7 @@ PAI=/var/PAI
 PAI_BACKUP_FOLDER=$PAI/Backup
 PAI_BOT_FOLDER=$PAI/Bot
 PAI_BOT_TEST_FILE=$PAI_BOT_FOLDER/test.sh
-PAI_BOT_CONFIG_FILE=$PAI_BOT_FOLDER/361e4539-ade7-4647-8e6f-859fbe90b0a0/settings/strings.cfg
+PAI_BOT_CONFIG_FILE=$PAI_BOT_FOLDER/$PAI_NET_ID/settings/strings.cfg
 PAI_CONFIG_FOLDER=$PAI/Config
 PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER/pai.config
 PAI_LOGS_FOLDER=$PAI/Logs
@@ -25,13 +25,14 @@ PAI_CODE_MODULES_FOLDER=$PAI_CODE_FOLDER/Modules
 PAI_EXTERNAL_SCRIPT_FOLDER=$PAI_CODE_FOLDER/external-scripts
 
 #PAI_SCRIPT_GUID=$(uuidgen)
-#PAI_SCRIPT_ID=3C1F2ED5-C28A-40EF-833E-9D93B8502C6E
+PAI_SCRIPT_ID=3C1F2ED5-C28A-40EF-833E-9D93B8502C6E
 
 . ../System/pai.sh
 
 # PAI functions
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro() {
+	touch $PAI_CONFIG_FILE
 	pai_log_sep
 	pai_log 'starting pai-install...'
 }
@@ -52,28 +53,22 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 
 	chmod -R 777 $PAI_LOGS_FOLDER
 	chmod -R 777 $PAI_CODE_FOLDER
+	chmod -R 777 $PAI_CONFIG_FOLDER
 }
 
-pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders_move() {
+pai_validate_folders_copy() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
+	git clone https://github.com/PAI-Tech/PAI-OS-LINUX.git
+	cp -R ./PAI-OS-LINUX/System/* $PAI_SYSTEM_FOLDER
+	cp -R ./PAI-OS-LINUX/Startup/* $PAI_STARTUP_FOLDER
+	cp -R ./PAI-OS-LINUX/PAI-CODE/external-scripts/* $PAI_EXTERNAL_SCRIPT_FOLDER
+	rm -rf PAI-OS-LINUX
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
 	echo "OS GUID: $PAI_SCRIPT_ID" >> $PAI_CONFIG_FILE
 	echo Installation time: "$(date)" >> $PAI_CONFIG_FILE
-}
-
-pai_install_bot() {
-	git clone https://github.com/PAI-Tech/PAI-BOT-JAVA-EXE.git && \
-	cp -R ./PAI-BOT-JAVA-EXE/* $PAI_BOT_FOLDER
-	cd $PAI_BOT_FOLDER
-	read -p "Please enter your PAI-NET bot-id : " PAI-BOT-ID
-	read -p "Please enter your PAI-NET bot Name : " PAI-BOT-NAME
-	sed -i 's|PAI-BOT-ID|"$PAI-BOT-ID"|' $PAI_BOT_CONFIG_FILE
-	sed -i 's|PAI-BOT-NAME|"$PAI-BOT-NAME"|' $PAI_BOT_CONFIG_FILE
-	sed -i 's|PAI-BOT-NAME|"$PAI-BOT-NAME"|' $PAI_BOT_TEST_FILE
-	./run_local.sh
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
@@ -84,5 +79,6 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end() {
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_intro
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders
+pai_validate_folders_copy
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_end

@@ -32,6 +32,13 @@ pai_validate_folder_mv()
         fi
 }
 
+pai_validate_folder_rm()
+{
+        if ! [ -f $1 ]; then
+                rm -rf $1
+        fi
+}
+
 pai_add_ppa() 
 {
   for i in "$@"; do
