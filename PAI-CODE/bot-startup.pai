@@ -1,0 +1,15 @@
+# PAI-CODE simple bot
+# PAI-CODE version 1.0
+# Created by Tamir Fridman on 28/05/2018.
+# Copyright © 2018 PAI Tech. All rights reserved.
+
+pai-code load module pai-bot
+pai-code load module pai-logger
+pai-code load module pai-os
+pai-code load module pai-net
+pai-net load connector queue
+pai-net load connector http
+pai-code show version
+pai-logger log msg:"Your bot is now running :)"
+
+
