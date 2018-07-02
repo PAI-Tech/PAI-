@@ -1,8 +1,9 @@
 # PAI-OS-LINUX
 
 PAI-Linux prepare (on clean ubuntu 16.04):
+from Install/pai-install.sh.
 
-1. Install pre-requisite pkgs:
+- Install pre-requisite pkgs:
     pydf
     zip
     unzip
@@ -13,6 +14,10 @@ PAI-Linux prepare (on clean ubuntu 16.04):
     libffi-dev
     python pkgs
     
-2. Update locales + set time to UTC
-3. Handle sudoers - only users in the sudo group able to run su command
-4. 
+- Update locales + set time to UTC
+- Handle sudoers - only users in the sudo group able to run su command
+- Update profiles
+- SSH setup - Password authentication
+- Install Java - latest version
+- Install Docker - latest version
+- Set a startup file
