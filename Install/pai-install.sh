@@ -12,6 +12,7 @@
 
 PAI=/var/PAI
 PAI_BACKUP_FOLDER=$PAI/Backup
+PAI_BACKUP_MYSQL_FOLDER=$PAI_BACKUP_FOLDER/MySQL
 PAI_BOT_FOLDER=$PAI/Bot
 PAI_BOT_TEST_FILE=$PAI_BOT_FOLDER/test.sh
 PAI_BOT_CONFIG_FILE=$PAI_BOT_FOLDER/$PAI_NET_ID/settings/strings.cfg
@@ -42,6 +43,7 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 	pai_log 'Validate and creating folders'
 	pai_validate_folder $PAI
 	pai_validate_folder $PAI_BACKUP_FOLDER
+	pai_validate_folder $PAI_BACKUP_MYSQL_FOLDER
 	pai_validate_folder $PAI_BOT_FOLDER
 	pai_validate_folder $PAI_CONFIG_FOLDER
 	pai_validate_folder $PAI_LOGS_FOLDER
