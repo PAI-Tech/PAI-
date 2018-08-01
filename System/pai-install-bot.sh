@@ -30,16 +30,23 @@ pai_install_nodejs_pm2() {
 apt-get install sudo curl
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
 apt-get install -qq -y nodejs
+npm install -g npm
 
 #Install PM2
 npm install pm2 -g
 }
 
 pai_install_bot() {
-#git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
+echo ""
+echo -e 'Bot git clone:'
+git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
 cd PAI-BOT-JS
+echo ""
+echo -e 'npm login:'
 npm login
-npm install
+echo ""
+npm install --no-save
+echo ""
 node PAI.js
 }
 
