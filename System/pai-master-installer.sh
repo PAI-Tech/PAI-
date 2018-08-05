@@ -41,6 +41,33 @@ PAI_INSTALLER_NAME="Pai Prepare Linux Ubuntu"
 
 # PAI System functions
 
+pai_file_log()
+{
+	NOW=$(date)
+	echo " | $1" >>$PAI_OS_LOG_FILE
+}
+
+
+pai_log_console()
+{
+	echo "  PAI: $1"
+}
+
+pai_log()
+{
+	NOW=$(date +%F-%T)
+	pai_log_console "[$NOW] $1"
+	pai_file_log "[$NOW] $1"
+}
+
+pai_log_sep()
+{
+	_SEP="+----------------------------------------------------------------------"
+	echo ""
+	echo $_SEP
+	echo ""
+}
+
 pai_run_system_script()
 {
 	sh $PAI_SYSTEM_FOLDER/$1
