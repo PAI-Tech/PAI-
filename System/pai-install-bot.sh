@@ -25,17 +25,6 @@ pai_log_sep
 pai_log 'starting pai-install-bot...'
 }
 
-pai_install_nodejs_pm2() {
-#Install nodejs
-apt-get install sudo curl
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
-apt-get install -qq -y nodejs
-npm install -g npm
-
-#Install PM2
-npm install pm2 -g
-}
-
 pai_install_bot() {
 echo ""
 echo -e 'Bot git clone:'
@@ -57,6 +46,5 @@ pai_log 'done :)'
 # PAI main flow
 
 pai_intro
-pai_install_nodejs_pm2
 pai_install_bot
 pai_end

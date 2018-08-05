@@ -75,7 +75,7 @@ pai_update_profiles()
 		echo "" >> $PAI_PROFILE_FILE
 		echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> $PAI_PROFILE_FILE
 		echo "JRE_HOME=/usr/lib/jvm/java-8-oracle/jre/bin/java" >> $PAI_PROFILE_FILE
-		echo "PATH=$PATH:$HOME/bin:JAVA_HOME:JRE_HOME" >> $PAI_PROFILE_FILE
+		echo "PATH=$PATH:$HOME/bin:JAVA_HOME:JRE_HOME:$PAI/System" >> $PAI_PROFILE_FILE
 		. $PAI_PROFILE_FILE
 		echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 		pai_log "Profile file updated"
@@ -100,32 +100,25 @@ pai_add_all_ppas()
 
 pai_java_install()
 {
-	pai_log "Installing Java..."
+	pai_log "Accept the Oracle license.."
+        echo debconf shared/accepted-oracle-license-v1-1 select true | \
+        debconf-set-selections && echo debconf shared/accepted-oracle-license-v1-1 seen true | \
+        debconf-set-selections
 	#Installing JAVA
-	apt-get -qq -y install oracle-java8-installer
+	pai_log "Installing Java..."
+	apt-get -qq -y install oracle-java8-installer && \
 	update-java-alternatives -s java-8-oracle
 	pai_log_sep
 }
 
-pai_docker_install()
+pai_nodejs_pm2_install()
 {
-	#install Docker
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
-	add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
-	apt-get -qq update
-	apt-cache policy docker-ce
-	apt-get install -qq -y docker-ce
-	#usermod -aG docker ${USER}
-	usermod -a -G docker $USER
-
-	#install docker-machine
-	curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
-	chmod +x /tmp/docker-machine && cp /tmp/docker-machine /usr/local/bin/docker-machine
-
-	# Install docker-compose
-	curl -L https://github.com/docker/compose/releases/download/1.21.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-	chmod +x /usr/local/bin/docker-compose
-	pai_log "Docker installation done..."
+        # Installing Nodejs
+        curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
+        apt-get install -qq -y nodejs
+        npm install -g npm
+        #Install PM2
+        npm install pm2 -g && pm2 startup
 }
 
 pai_create_startup_file()
@@ -167,36 +160,6 @@ pai_folders_validate()
 	chmod -R 777 $PAI_LOGS
 }
 
-pai_open_web_port()
-{
-	service ufw stop
-	iptables -P INPUT ACCEPT
-	iptables -P OUTPUT ACCEPT
-	iptables -P FORWARD ACCEPT
-	iptables -F
-}
-
-pai_install_media_docker_image()
-{
-	HTML_FOLDER=/var/www/html/
-	wget http://130.61.26.34:8080/docker/pai-media-streaming.tar
-	docker load --input pai-media-streaming.tar
-	docker run -p 80:80 -itd -v $PAI_MEDIA_PUBLIC_FOLDER:$HTML_FOLDER --name pai-media-streaming pai-media-vio
-	wget http://130.61.26.34:8080/demo.tar.gz
-	wget http://130.61.26.34:8080/media.tar.gz
-	mv demo.tar.gz media.tar.gz $PAI_MEDIA_PUBLIC_FOLDER
-	cd $PAI_MEDIA_PUBLIC_FOLDER
-	tar -xvf demo.tar.gz
-	tar -xvf media.tar.gz
-	chown -R www-data:www-data $PAI_MEDIA_PUBLIC_FOLDER
-}
-
-pai_install_oracle_cli()
-{
-	bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"
-	oci setup config
-}
-
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end()
 {
 	pai_log_sep
@@ -217,9 +180,5 @@ pai_ssh_setup
 pai_update_profiles
 pai_add_all_ppas
 pai_java_install
-pai_docker_install
 pai_create_startup_file
-#pai_open_web_port
-#pai_install_media_docker_image
-#pai_install_oracle_cli
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end
