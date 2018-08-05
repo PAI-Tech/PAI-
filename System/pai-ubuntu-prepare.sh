@@ -47,7 +47,6 @@ pai_update_os()
 
 pai_update_locale()
 {
-	locale-gen "he_IL.UTF-8"
 	locale-gen "en_US.UTF-8"
 	#dpkg-reconfigure locales #IBM
 	update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 #MS
