@@ -22,7 +22,6 @@ PAI_INSTALLER_NAME="Pai Startup"
 
 # PAI system includes
 
-PAI=/var/PAI
 PAI_BACKUP_FOLDER=$PAI/Backup
 PAI_BACKUP_MYSQL_FOLDER=$PAI_BACKUP_FOLDER/MySQL
 PAI_BOT_FOLDER=$PAI/Bot
@@ -30,7 +29,6 @@ PAI_BOT_TEST_FILE=$PAI_BOT_FOLDER/test.sh
 PAI_BOT_CONFIG_FILE=$PAI_BOT_FOLDER/$PAI_NET_ID/settings/strings.cfg
 PAI_CONFIG_FOLDER=$PAI/Config
 PAI_CONFIG_FILE=$PAI_CONFIG_FOLDER/pai.config
-PAI_LOGS_FOLDER=$PAI/Logs
 PAI_SYSTEM_FOLDER=$PAI/System
 PAI_STARTUP_FOLDER=$PAI/Startup
 PAI_CODE_FOLDER=$PAI/PAI-CODE/
@@ -296,7 +294,7 @@ pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end()
 # PAI MAIN FLOW
 
 #pai_folders_validate
-pai_prepare_intro
+pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_intro
 pai_update_os
 pai_update_locale
 pai_handle_sudoers
