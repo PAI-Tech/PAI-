@@ -72,7 +72,7 @@ pai_run_system_script()
 }
 
 
-pai_validate_folder() #Ubuntu
+pai_validate_folder()
 {
 	if ! [ -d $1 ]; then
 		mkdir -p $1
@@ -96,7 +96,7 @@ pai_add_ppa()
 
 pai_write_to_script()
 {
-        echo -e $1>>$PAI_STARTUP_SCRIPT_FILE_PATH
+        echo -e $1 >> $PAI_STARTUP_SCRIPT_FILE_PATH
 }
 
 # PAI functions
@@ -105,15 +105,19 @@ pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_intro()
 {
 	pai_log_sep
 	pai_log "Prepairing Linux OS For Pai"
+	apt update
+	DEBIAN_FRONTEND=noninteractive
+	apt-get install -y tzdata
+	ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+	dpkg-reconfigure --frontend noninteractive tzdata
 }
 
 pai_update_os()
 {
 	pai_log_sep
 	pai_log "Updating OS & Installing Default (Linux)..."
-	PAI_REQUIERED_PREPARE_INSTALLATION="pydf zip unzip htop git build-essential libssl-dev libffi-dev python-software-properties python-dev python-numpy python-tk python3-dev python3-tk python3-numpy"
-	apt-get -qq update
-	apt-get -qq -y upgrade
+	PAI_REQUIERED_PREPARE_INSTALLATION="curl sudo pydf htop git build-essential libssl-dev libffi-dev gcc g++ make software-properties-common python-dev python-numpy python-tk python3-dev python3-tk python3-numpy"
+#	apt-get -qq update
 	apt-get -qq install $PAI_REQUIERED_PREPARE_INSTALLATION
 	pai_log "OS updated :)"
 }
@@ -124,7 +128,7 @@ pai_update_locale()
 	locale-gen "en_US.UTF-8"
 	#dpkg-reconfigure locales #IBM
 	update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 #MS
-	timedatectl set-timezone Etc/UTC
+#	timedatectl set-timezone Etc/UTC
 	pai_log "Locale (UTF+TZ) updated"
 }
 
@@ -297,15 +301,14 @@ pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end()
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_intro
 pai_update_os
 pai_update_locale
-pai_handle_sudoers
-pai_update_profiles
-pai_ssh_setup
-pai_update_profiles
-pai_add_all_ppas
-pai_java_install
-pai_create_startup_file
-pai_folders_validate
-pai_validate_folders_copy
-pai_update_config_file
+#pai_handle_sudoers
+#pai_update_profiles
+#pai_ssh_setup
+#pai_add_all_ppas
+#pai_java_install
+#pai_create_startup_file
+#pai_folders_validate
+#pai_validate_folders_copy
+#pai_update_config_file
 #pai_install_bot
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end

@@ -9,5 +9,5 @@ PAI=/var/PAI
 #PAI_SYSTEM_FOLDER=$PAI/System
 
 
-. ../System/pai-os.sh
-. ../System/pai-log.sh
+. $PAI/System/pai-os.sh
+. $PAI/System/pai-log.sh
