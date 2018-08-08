@@ -27,11 +27,10 @@ pai_log 'starting pai-install-docker-bot...'
 pai_install_media_docker_image()
 {
 	# $1="docker name" \ $2="message"
-#	cp ~/Git/servers/pai-bot-node.tar .
 	docker load --input $PAI_TAR_BOT_FOLDER
 	echo ""
 	docker run -itd --name $1 pai-bot-node
-	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/init.js $2"
+	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/PAI_init.js $2"
 }
 
 pai_206b5dff-0a91-4b33-8715-41f12a280c50_end() {
