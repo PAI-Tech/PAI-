@@ -13,7 +13,7 @@
 PAI_SCRIPT_ID=206b5dff-0a91-4b33-8715-41f12a280c50
 
 PAI=/var/PAI
-PAI_TAR_BOT_FOLDER="/home/calibero/Git/servers/pai-bot-node.tar"
+PAI_TAR_BOT_FOLDER="$PAI/Install/pai-bot-node.tar"
 
 . $PAI/System/pai.sh
 
