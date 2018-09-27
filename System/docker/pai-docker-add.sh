@@ -31,7 +31,7 @@ pai_install_media_docker_image()
 	echo ""
 	rm -rf /tmp/PAI-BOT-JS
 	echo "Git clone"
-	git clone git@github.com:PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
+	git clone https://github.com/PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
 	echo ""
 	echo "npm install"
 	npm install --no-save /tmp/PAI-BOT-JS --prefix /tmp/PAI-BOT-JS

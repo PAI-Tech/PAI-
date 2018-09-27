@@ -179,5 +179,6 @@ pai_ssh_setup
 pai_update_profiles
 pai_add_all_ppas
 pai_java_install
+pai_nodejs_pm2_install
 pai_create_startup_file
 pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_end
