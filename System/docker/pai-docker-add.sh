@@ -26,11 +26,27 @@ pai_log 'starting pai-install-docker-bot...'
 
 pai_install_media_docker_image()
 {
-	# $1="docker name" \ $2="message"
-	docker load --input $PAI_TAR_BOT_FOLDER
+	# $1="container name" \ $2="PAI message"  \ $3="docker image name"
+	#docker load --input $PAI_TAR_BOT_FOLDER
 	echo ""
-	docker run -itd --name $1 pai-bot-node
-	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/PAI_init.js $2"
+	rm -rf /tmp/PAI-BOT-JS
+	echo "Git clone"
+	git clone git@github.com:PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
+	echo ""
+	echo "npm install"
+	npm install --no-save /tmp/PAI-BOT-JS --prefix /tmp/PAI-BOT-JS
+	echo ""
+	echo "docker run"
+	docker run -itd --name $1 $3
+	echo ""
+	echo "Copy git to docker"
+	docker cp /tmp/PAI-BOT-JS $1:/home/
+	rm -rf /tmp/PAI-BOT-JS
+	echo ""
+	echo "docker exec"
+	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/PAI_init.js '$2'"
+	docker exec -itd $1 bash -c "pm2 start /home/PAI-BOT-JS/PAI.js"
+	echo "success"
 }
 
 pai_206b5dff-0a91-4b33-8715-41f12a280c50_end() {
