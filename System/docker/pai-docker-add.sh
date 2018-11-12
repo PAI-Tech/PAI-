@@ -13,7 +13,7 @@
 PAI_SCRIPT_ID=206b5dff-0a91-4b33-8715-41f12a280c50
 
 PAI=/var/PAI
-PAI_TAR_BOT_FOLDER="$PAI/Install/pai-bot-node.tar"
+PAI_TAR_BOT_FOLDER="$PAI/Install/pai-naked-node.tar"
 
 . $PAI/System/pai.sh
 
@@ -31,7 +31,7 @@ pai_install_media_docker_image()
 	echo ""
 	rm -rf /tmp/PAI-BOT-JS
 	echo "Git clone"
-	git clone https://github.com/PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
+	git clone git@github.com:PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
 	echo ""
 	echo "npm install"
 	npm install --no-save /tmp/PAI-BOT-JS --prefix /tmp/PAI-BOT-JS
@@ -50,11 +50,11 @@ pai_install_media_docker_image()
 }
 
 pai_206b5dff-0a91-4b33-8715-41f12a280c50_end() {
-pai_log 'done :)'
+    pai_log 'done :)'
 }
 
 # PAI main flow
 
 pai_206b5dff-0a91-4b33-8715-41f12a280c50_intro
-pai_install_media_docker_image "$1" "$2"
+pai_install_media_docker_image "$1" "$2" "$3"
 pai_206b5dff-0a91-4b33-8715-41f12a280c50_end
