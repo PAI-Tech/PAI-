@@ -13,11 +13,9 @@ PAI_SCRIPT_ID=8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245
 
 PAI=/var/PAI
 BACKUP_FOLDER="$PAI/Backup"
-DB_BACKUP_FOLDER="$BACKUP_FOLDER/MySQL"
-TAR_BACKUP_FILE_NAME=local-host-14_$_now
+TAR_BACKUP_FILE_NAME=local-14-host
 BACKUP_FOLDER=~/backup
 _now=$(date +"%m_%d_%Y-%H.%M")
-_file="$DB_BACKUP_FOLDER/wordpress_$_now.sql.gz"
 
 . $PAI/System/pai.sh
 
@@ -34,7 +32,7 @@ pai_backup()
 	pai_log 'Validating backup folder'
 	pai_validate_folder $BACKUP_FOLDER
 	pai_log 'starting backing-up PAI folder...'
-	tar -zcvf ~/backup/pai-$TAR_BACKUP_FILE_NAME.tar.gz $PAI
+	tar -zcvf ~/backup/pai-$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI
 }
 
 pai_8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245_end() {
