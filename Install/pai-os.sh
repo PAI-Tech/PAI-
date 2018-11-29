@@ -25,6 +25,15 @@ pai_validate_folder() #Ubuntu
 	fi
 }
 
+pai_validate_if_then_else()
+{
+  if [ -f $PAI_STARTUP_SCRIPT_FILE ]; then
+                touch $PAI_STARTUP_SCRIPT_FILE_PATH
+        else
+                cp $PAI/System/pai-startup-empty.sh $PAI_STARTUP_SCRIPT_FILE_PATH
+        fi
+}
+
 pai_validate_folder_mv()
 {
         if ! [ -d $1 ]; then

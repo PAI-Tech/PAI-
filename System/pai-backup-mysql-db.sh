@@ -22,6 +22,7 @@ BACKUP_FOLDER="$PAI/Backup"
 DB_BACKUP_FOLDER="$BACKUP_FOLDER/MySQL"
 _now=$(date +"%m_%d_%Y-%H.%M")
 _file="$DB_BACKUP_FOLDER/wordpress_$_now.sql.gz"
+
 . $PAI/System/pai.sh
 
 # PAI functions
@@ -47,5 +48,5 @@ pai_log 'done :)'
 # PAI main flow
 
 pai_8fc5a3dd-ba8d-4cd4-91ce-7e0ae086b245_intro
-
+pai_backup_db_dump
 pai_8fc5a3dd-ba8d-4cd4-91ce-7e0ae086b245_end
