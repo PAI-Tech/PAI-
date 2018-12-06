@@ -34,8 +34,8 @@ pai_backup()
 	pai_validate_folder $BACKUP_FOLDER
 	pai_validate_folder $PAI_BOT_BACKUP_FOLDER
 	pai_log 'Starting backing-up PAI-Bot folder...'
-	tar -zcvf $PAI_BOT_BACKUP_FOLDER/pai-$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI_BOT_FOLDER
-	ls -l $_file
+	tar -zcvf $PAI_BOT_BACKUP_FOLDER/$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI_BOT_FOLDER
+	ls -l $PAI_BOT_BACKUP_FOLDER
         find $PAI_BOT_BACKUP_FOLDER/$TAR_BACKUP_FILE_NAME* -mtime +7 -exec rm {} \;
 }
 
