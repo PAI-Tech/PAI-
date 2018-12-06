@@ -12,6 +12,7 @@
 PAI_SCRIPT_ID=8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245
 
 PAI=/var/PAI
+PAI_BOT_FOLDER=$PAI/Bot
 BACKUP_FOLDER="$PAI/Backup"
 TAR_BACKUP_FILE_NAME=local-14-host
 BACKUP_FOLDER=~/backup
@@ -32,7 +33,7 @@ pai_backup()
 	pai_log 'Validating backup folder'
 	pai_validate_folder $BACKUP_FOLDER
 	pai_log 'starting backing-up PAI folder...'
-	tar -zcvf ~/backup/pai-$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI
+	tar -zcvf ~/backup/pai-$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI_BOT_FOLDER
 }
 
 pai_8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245_end() {
