@@ -12,9 +12,9 @@
 PAI_SCRIPT_ID=8fc5a3dd1-ba8d-4cd4-91ce-7e0ae086b245
 
 PAI=/var/PAI
-BACKUP_FOLDER=~/backup
-CONTAINER_NAME=mysql
-IMAGE_NAME=pai-backup-mysql
+BACKUP_FOLDER=$PAI/backup
+CONTAINER_NAME=???
+IMAGE_NAME=pai-???
 _now=$(date +"%m_%d_%Y-%H.%M")
 TAR_DOCKER_BACKUP_FILE_NAME=$IMAGE_NAME-docker-$_now.tar
 
@@ -38,7 +38,7 @@ pai_docker_backup() {
 	pai_log 'starting backing-up "$CONTAINER_NAME" Container...'
 	docker commit $CONTAINER_NAME $IMAGE_NAME
 	pai_log 'Save image to file'
-	docker save $CONTAINER_NAME > $BACKUP_FOLDER/$TAR_DOCKER_BACKUP_FILE_NAME
+	docker save $IMAGE_NAME > $BACKUP_FOLDER/$TAR_DOCKER_BACKUP_FILE_NAME
 
 }
 
