@@ -25,16 +25,20 @@ pai_log 'starting pai-install-bot...'
 
 pai_install_bot() {
 echo ""
-echo -e 'Bot git clone:'
-git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
-cd PAI-BOT-JS
+#echo -e 'Bot git clone:'
+#git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
+cd $PAI/Bot/PAI-BOT-JS
+rm package-lock.json
+git reset --hard
+git pull
+npm i --production
 echo ""
-echo -e 'npm login:'
-npm login
+node PAI_init.js
 echo ""
-npm install --no-save
+read -p "Please enter your bot name : " BOT_NAME
 echo ""
-node PAI.js
+pm2 start PAI.js --name $BOT_NAME --watch
+pm2 save
 
 pai_07a08866-4c2a-4f5b-99f5-38b12480e766_end() {
 pai_log 'done :)'
