@@ -27,17 +27,24 @@ pai_install_bot() {
 echo ""
 #echo -e 'Bot git clone:'
 #git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
+pai_log 'Running git pull'
 cd $PAI/Bot/PAI-BOT-JS
 git reset --hard
 git pull
 rm package-lock.json
+echo ""
+pai_log 'Npm install packages'
+npm i -g socks
 npm i
 echo ""
+pai_log 'Installing bot proccess'
 npm run init
 echo ""
-read -p "Please enter your bot name : " BOT_NAME
+pai_log 'Starting bot service with pm2'
+read -p "Please enter service name : " SERVICE_NAME
 echo ""
-pm2 start PAI.js --name $BOT_NAME --watch
+pm2 start PAI.js --name $SERVICE_NAME --watch
+pm2 install pm2-logrotate
 pm2 save
 }
 
