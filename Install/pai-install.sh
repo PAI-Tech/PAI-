@@ -62,11 +62,9 @@ pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_validate_folders() {
 pai_validate_folders_copy() {
 	pai_log_sep
 	pai_log 'Validate and creating folders'
-	git clone https://github.com/PAI-Tech/PAI-OS-LINUX.git
-	cp -R ./PAI-OS-LINUX/System/* $PAI_SYSTEM_FOLDER
-	cp -R ./PAI-OS-LINUX/Startup/* $PAI_STARTUP_FOLDER
-	cp -R ./PAI-OS-LINUX/PAI-CODE/external-scripts/* $PAI_EXTERNAL_SCRIPT_FOLDER
-	rm -rf PAI-OS-LINUX
+	cp -R ../System/* $PAI_SYSTEM_FOLDER
+	cp -R ../Startup/* $PAI_STARTUP_FOLDER
+	cp -R ../PAI-CODE/external-scripts/* $PAI_EXTERNAL_SCRIPT_FOLDER
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
