@@ -13,6 +13,8 @@
 PAI_SCRIPT_ID=07a08866-4c2a-4f5b-99f5-38b12480e766
 
 PAI=/var/PAI
+PAI_BOT_FOLDER=$PAI/Bot
+PAI_BOT_GIT_FOLDER=$PAI_BOT_FOLDER/PAI-BOT-JS
 
 . $PAI/System/pai.sh
 
@@ -28,12 +30,13 @@ echo ""
 #echo -e 'Bot git clone:'
 #git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
 pai_log 'Running git pull'
-cd $PAI/Bot/PAI-BOT-JS
+cd $PAI_BOT_GIT_FOLDER
 git reset --hard
 git pull
 rm package-lock.json
 echo ""
 pai_log 'Npm install packages'
+npm i -g npm
 npm i -g socks
 npm i
 echo ""
@@ -43,6 +46,7 @@ echo ""
 pai_log 'Starting bot service with pm2'
 read -p "Please enter service name : " SERVICE_NAME
 echo ""
+chown -R calibero:calibero $PAI_BOT_FOLDER
 pm2 start PAI.js --name $SERVICE_NAME --watch
 pm2 install pm2-logrotate
 pm2 save
