@@ -30,6 +30,10 @@ pai_update_modules()
 	pai_log_sep
 	pai_log 'Deleting node_modules folder'
 	rm -rf $PAI_BOT_MODULES_FOLDER
+	pai_log_sep
+	pai_log 'Cleaning npm cache..'
+	npm cache clean --force
+	pai_log_sep
 	pai_log 'Install & update modules...'
 	npm i
 	npm audit fix
