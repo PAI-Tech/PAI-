@@ -37,6 +37,9 @@ pai_update_modules()
 	pai_log 'Install & update modules...'
 	npm i
 	npm audit fix
+	pai_log_sep
+        pai_log 'Install ui manually...'
+	npm i @pai-tech/tf-bank-ui@latest
 	npm update
 	pm2 restart 2
 }
