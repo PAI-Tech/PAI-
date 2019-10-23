@@ -12,10 +12,10 @@
 PAI_SCRIPT_ID=8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245
 
 PAI=/var/PAI
+BOT_NAME=Bot
 PAI_BOT_FOLDER=$PAI/Bot
 BACKUP_FOLDER="$PAI/Backup"
 PAI_BOT_BACKUP_FOLDER=$BACKUP_FOLDER/Bot
-TAR_BACKUP_FILE_NAME=???
 _now=$(date +"%m_%d_%Y-%H.%M")
 
 . $PAI/System/pai.sh
@@ -34,9 +34,9 @@ pai_backup()
 	pai_validate_folder $BACKUP_FOLDER
 	pai_validate_folder $PAI_BOT_BACKUP_FOLDER
 	pai_log 'Starting backing-up PAI-Bot folder...'
-	tar -zcvf $PAI_BOT_BACKUP_FOLDER/$TAR_BACKUP_FILE_NAME-$_now.tar.gz $PAI_BOT_FOLDER
+	tar -zcvf $PAI_BOT_BACKUP_FOLDER/$BOT_NAME-$_now.tar.gz -C $PAI/ ./$BOT_NAME
 	ls -l $PAI_BOT_BACKUP_FOLDER
-        find $PAI_BOT_BACKUP_FOLDER/$TAR_BACKUP_FILE_NAME* -mtime +7 -exec rm {} \;
+        find $PAI_BOT_BACKUP_FOLDER/$BOT_NAME* -mtime +7 -exec rm {} \;
 }
 
 pai_8fc5a3dd-ba8d-4cd4-51ce-7e0ae086b245_end() {

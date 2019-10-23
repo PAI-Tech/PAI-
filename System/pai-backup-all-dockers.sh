@@ -28,7 +28,6 @@ pai_dc11a103-5b41-4e7d-b47b-adefa6fa3528_intro() {
 pai_backup_docker_container() {
 	pai_log_sep
 
-	
 
 	containers=$(sudo docker ps | awk '{if(NR>1) print $NF}') # all containers names splitted with space
 
@@ -41,10 +40,9 @@ pai_backup_docker_container() {
 
 
 pai_commit_dockers() {
-	
 	for var in "$@"
 	do
-		
+
 		docker_container_name="$var"
 		docker_image_name="img_$var"
 		docker_backup_file_name="$DESTINATION/BKP_$var.tar"
@@ -61,11 +59,7 @@ pai_commit_dockers() {
 		pai_log_sep
 
 	done
-
 }
-
-
-
 
 pai_dc11a103-5b41-4e7d-b47b-adefa6fa3528_end() {
 	pai_log 'done :)'

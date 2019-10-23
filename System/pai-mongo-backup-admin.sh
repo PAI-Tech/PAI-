@@ -15,6 +15,7 @@ PAI_SCRIPT_ID=18e8242d-46b2-41a6-9b55-e52117aa4b11
 PAI=/var/PAI
 USERNAME=$1
 PASSWORD=$2
+_now=$(date +"%m_%d_%Y-%H.%M")
 
 . $PAI/System/pai.sh
 

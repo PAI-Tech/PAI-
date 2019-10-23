@@ -20,8 +20,9 @@ PAI_SCRIPT_ID=8fc5a3dd-ba8d-4cd4-91ce-7e0ae086b245
 PAI=/var/PAI
 BACKUP_FOLDER="$PAI/Backup"
 DB_BACKUP_FOLDER="$BACKUP_FOLDER/MySQL"
-_now=$(date +"%m_%d_%Y-%H.%M")
-_file="$DB_BACKUP_FOLDER/wordpress_$_now.sql.gz"
+DB_NAME=wordpress
+_now=$(date +"%d_%m_%Y-%H.%M")
+_file="$DB_BACKUP_FOLDER/$DB_NAME-$_now.sql.gz"
 
 . $PAI/System/pai.sh
 
@@ -35,10 +36,10 @@ pai_log 'starting pai-backup-mysql-db...'
 pai_backup_db_dump()
 {
         pai_log 'Starting backup to $_file...'
-        mysqldump -u root -pjHgNa6IrEzZ4 --default-character-set=utf8mb4 --add-drop-database --add-drop-table --single-transaction  -B --routines wordpress | gzip -9 > $_file
-        echo "Databse Cafe_Online succesfully exported to: "
+        mysqldump -u root -pjHgNa6IrEzZ4 --default-character-set=utf8mb4 --add-drop-database --add-drop-table --single-transaction  -B --routines $DB_NAME | gzip -9 > $_file
+        echo "Databse $DB_NAME succesfully exported to: "
         ls -l $_file
-        find $DB_BACKUP_FOLDER/wordpress* -mtime +7 -exec rm {} \;
+        find $DB_BACKUP_FOLDER/$DB_NAME* -mtime +7 -exec rm {} \;
 }
 
 pai_8fc5a3dd-ba8d-4cd4-91ce-7e0ae086b245_end() {
