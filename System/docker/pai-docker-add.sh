@@ -34,18 +34,21 @@ pai_install_media_docker_image()
 	git clone git@github.com:PAI-Tech/PAI-BOT-JS.git /tmp/PAI-BOT-JS
 	echo ""
 	echo "npm install"
-	npm install --no-save /tmp/PAI-BOT-JS --prefix /tmp/PAI-BOT-JS
+	npm i --no-save /tmp/PAI-BOT-JS --prefix /tmp/PAI-BOT-JS
+	npm update
+	npm audit fix
 	echo ""
 	echo "docker run"
-	docker run -itd --name $1 $3
+	docker run -itd -p $4:$5 --name $1 $3
 	echo ""
 	echo "Copy git to docker"
 	docker cp /tmp/PAI-BOT-JS $1:/home/
 	rm -rf /tmp/PAI-BOT-JS
 	echo ""
 	echo "docker exec"
-	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/PAI_init.js '$2'"
-	docker exec -itd $1 bash -c "pm2 start /home/PAI-BOT-JS/PAI.js"
+	docker exec -itd $1 bash -c "node /home/PAI-BOT-JS/init.js '$2'"
+	docker exec -itd $1 bash -c "pm2 start /home/PAI-BOT-JS/PAI.js --name $1 --watch"
+	docker exec -itd $1 bash -c "pm2 save"
 	echo "success"
 }
 
