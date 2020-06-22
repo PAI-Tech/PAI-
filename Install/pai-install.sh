@@ -65,9 +65,10 @@ pai_validate_folders_copy() {
 	cp -R ../System/* $PAI_SYSTEM_FOLDER
 	cp -R ../Startup/* $PAI_STARTUP_FOLDER
 	cp -R ../PAI-CODE/external-scripts/* $PAI_EXTERNAL_SCRIPT_FOLDER
-	git clone https://github.com/PAI-Tech/PAI-BOT-JS.git
-	cp -R PAI-BOT-JS/ $PAI_BOT_FOLDER
-	rm -rf PAI-BOT-JS
+	git clone https://github.com/PAI-Tech/PAI-BOT.git
+	mv PAI-BOT/ $PAI_BOT_FOLDER
+	rm -rf PAI-BOT
+	chown -R ubuntu:ubuntu /var/PAI/Bot
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
