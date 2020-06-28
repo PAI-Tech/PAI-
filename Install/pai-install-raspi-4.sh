@@ -25,7 +25,7 @@ pai_9729e1ee-60d7-42cb-8f01-dcf075b4cbf9_intro()
 pai_update_os()
 {
 	pai_log "Updating OS & Installing Default (Linux)..."
-	PAI_REQUIERED_PREPARE_INSTALLATION="pydf zip unzip htop git build-essential gcc g++ make libssl-dev libffi-dev software-properties-common python-dev python-numpy python-tk python3-dev python3-tk python3-numpy"
+	PAI_REQUIERED_PREPARE_INSTALLATION="pydf zip unzip htop git build-essential gcc g++ make libssl-dev libffi-dev software-properties-common python-dev python-numpy python-tk python3-dev python3-tk python3-numpy net-tools "
 	apt-get -qq update
 	apt-get -qq install $PAI_REQUIERED_PREPARE_INSTALLATION
 	#apt-get -qq -y upgrade

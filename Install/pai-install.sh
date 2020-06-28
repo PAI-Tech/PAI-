@@ -68,7 +68,7 @@ pai_validate_folders_copy() {
 	git clone https://github.com/PAI-Tech/PAI-BOT.git
 	mv PAI-BOT/ $PAI_BOT_FOLDER
 	rm -rf PAI-BOT
-	chown -R ${USER}:${USER} /var/PAI/Bot
+	chown -R ${USER}:${USER} /var/PAI/Bot/
 }
 
 pai_3C1F2ED5-C28A-40EF-833E-9D93B8502C6E_update_config_file() {
